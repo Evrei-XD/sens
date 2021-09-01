@@ -97,7 +97,6 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
       mainactivity_navi.postDelayed({ model.showBadge() }, 100)
     }, 200)
   }
-
   private fun getNFCData(intent: Intent) {
     if (NfcAdapter.ACTION_NDEF_DISCOVERED == getIntent().action) {
       val rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
@@ -114,7 +113,6 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
       }
     }
   }
-
   override fun onResume() {
     super.onResume()
     val filter = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)
@@ -131,13 +129,11 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
     val filters = arrayOf(filter)
     nAdapter!!.enableForegroundDispatch(this, pIntent, filters, null)
   }
-
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
     setIntent(intent)
     getNFCData(getIntent())
   }
-
   private fun weatherAlarm() {
     if (!presenter.weatherAlarm) {
       val mCalendar = GregorianCalendar()
@@ -146,10 +142,13 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
       presenter.weatherAlarm = true
     }
   }
-
   private fun pendingIntent(requestCode: Int): PendingIntent {
     val intent = Intent(this, LocalWeatherReceiver::class.java)
     intent.putExtra(IntentExtras.ALARM_PENDING_REQUEST, requestCode)
     return PendingIntent.getBroadcast(this, requestCode, intent, 0)
+  }
+
+  fun clickNext (position: Int) {
+    NavigationUtils.setNextView(baseContext, mainactivity_viewpager, mainactivity_navi, position)
   }
 }

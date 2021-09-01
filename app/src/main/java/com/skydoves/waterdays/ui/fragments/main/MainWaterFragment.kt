@@ -38,12 +38,16 @@ import com.skydoves.waterdays.persistence.preference.PreferenceKeys
 import com.skydoves.waterdays.persistence.preference.PreferenceManager
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager
 import com.skydoves.waterdays.services.receivers.LocalWeather
+import com.skydoves.waterdays.ui.activities.main.MainActivity
 import com.skydoves.waterdays.ui.activities.main.SelectDrinkActivity
 import com.skydoves.waterdays.utils.DateUtils
 import com.skydoves.waterdays.utils.FillableLoaderPaths
 import com.skydoves.waterdays.utils.NetworkUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.layout_dailyrecord.*
 import kotlinx.android.synthetic.main.layout_todaywaterdrink.*
+import kotlinx.android.synthetic.main.layout_todaywaterdrink.next_1_btn
+import kotlinx.android.synthetic.main.layout_todaywaterdrink.next_2_btn
 import java.util.concurrent.ExecutionException
 import javax.inject.Inject
 
@@ -63,12 +67,14 @@ class MainWaterFragment : Fragment() {
   private var rootView: View? = null
   private var mContext: Context? = null
   private lateinit var fillAbleLoader: FillableLoader
+  private var main: MainActivity? = null
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val rootView = inflater.inflate(R.layout.layout_todaywaterdrink, container, false)
     WDApplication.component.inject(this)
     this.rootView = rootView
     this.mContext = context
+    if (activity != null) { main = activity as MainActivity? }
     return rootView
   }
 
@@ -131,6 +137,13 @@ class MainWaterFragment : Fragment() {
     RxUpdateMainEvent.getInstance().observable
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { setPercentage() }
+
+    next_2_btn.setOnClickListener {
+      main?.clickNext(3)
+    }
+    next_1_btn.setOnClickListener {
+      main?.clickNext(3)
+    }
   }
 
   private fun getPercentage(): Float {

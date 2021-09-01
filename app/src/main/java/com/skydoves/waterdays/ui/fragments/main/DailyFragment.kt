@@ -38,6 +38,7 @@ import com.skydoves.waterdays.consts.CapacityDrawable
 import com.skydoves.waterdays.events.rx.RxUpdateMainEvent
 import com.skydoves.waterdays.models.Drink
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager
+import com.skydoves.waterdays.ui.activities.main.MainActivity
 import com.skydoves.waterdays.ui.adapters.DailyDrinkAdapter
 import com.skydoves.waterdays.ui.viewholders.DailyDrinkViewHolder
 import com.skydoves.waterdays.utils.DateUtils
@@ -60,6 +61,7 @@ class DailyFragment : Fragment() {
   private val adapter: DailyDrinkAdapter by lazy { DailyDrinkAdapter(delegate) }
 
   private var dateCount = 0
+  private var main: MainActivity? = null
 
   override fun onAttach(context: Context) {
     WDApplication.component.inject(this)
@@ -68,6 +70,7 @@ class DailyFragment : Fragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     this.rootView  = inflater.inflate(R.layout.layout_dailyrecord, container, false)
+    if (activity != null) { main = activity as MainActivity? }
     return rootView
   }
 
@@ -88,6 +91,13 @@ class DailyFragment : Fragment() {
           adapter.clear()
           addItems(DateUtils.getFarDay(0))
         }
+
+    next_2_btn.setOnClickListener {
+      main?.clickNext(2)
+    }
+    next_1_btn.setOnClickListener {
+      main?.clickNext(2)
+    }
   }
 
   /**

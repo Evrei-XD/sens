@@ -92,6 +92,30 @@
                 android:textSize="22sp"
                 android:visibility="invisible" />
 
+            <Button
+                android:id="@+id/next_2_btn"
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="16dp"
+                android:layout_toStartOf="@+id/next_1_btn"
+                android:background="#00ffffff"
+                android:gravity="center"
+                android:text="Next"
+                android:textColor="#ffffff"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/next_1_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_next_48" />
+
         </RelativeLayout>
 
     </LinearLayout>

@@ -79,8 +79,8 @@ object NavigationUtils {
   }
 
   fun setComponents(context: Context, viewPager: ViewPager, navigationTabBar: NavigationTabBar) {
-    navigationTabBar.models = NavigationUtils.getNavigationModels(context)
-    navigationTabBar.setViewPager(viewPager, 2)
+    navigationTabBar.models = getNavigationModels(context)
+    navigationTabBar.setViewPager(viewPager, 0)
     navigationTabBar.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
       override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
@@ -90,5 +90,10 @@ object NavigationUtils {
 
       override fun onPageScrollStateChanged(state: Int) {}
     })
+  }
+
+  fun setNextView(context: Context, viewPager: ViewPager, navigationTabBar: NavigationTabBar, position: Int) {
+    navigationTabBar.models = getNavigationModels(context)
+    navigationTabBar.setViewPager(viewPager, position)
   }
 }

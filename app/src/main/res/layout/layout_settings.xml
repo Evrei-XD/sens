@@ -5,6 +5,10 @@
     android:orientation="vertical"
     android:weightSum="7">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/settings_tv_nfc"
         android:layout_width="match_parent"
@@ -106,4 +110,35 @@
         android:textColor="#cbc8d2"
         android:textSize="18sp" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8">
+
+        <Button
+            android:id="@+id/next_2_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_toStartOf="@+id/next_1_btn"
+            android:background="#00ffffff"
+            android:gravity="center"
+            android:text="submit a report"
+            android:textColor="#ffffff"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/next_1_btn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/ic_next_48" />
+
+    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

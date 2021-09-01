@@ -29,6 +29,7 @@ import com.skydoves.waterdays.WDApplication
 import com.skydoves.waterdays.events.rx.RxUpdateMainEvent
 import com.skydoves.waterdays.models.Alarm
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager
+import com.skydoves.waterdays.ui.activities.main.MainActivity
 import com.skydoves.waterdays.ui.activities.main.MakeAlarmActivity
 import com.skydoves.waterdays.ui.adapters.AlarmFragmentAdapter
 import com.skydoves.waterdays.ui.viewholders.AlarmViewHolder
@@ -52,11 +53,13 @@ class AlarmFragment : Fragment() {
 
   private var rootView: View? = null
   private var adapter: AlarmFragmentAdapter? = null
+  private var main: MainActivity? = null
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val rootView = inflater!!.inflate(R.layout.layout_setnotification, container, false)
     WDApplication.component.inject(this)
     this.rootView = rootView
+    if (activity != null) { main = activity as MainActivity? }
     return rootView
   }
 
@@ -91,9 +94,17 @@ class AlarmFragment : Fragment() {
       cursor!!.close()
     }
 
-    setnotification_fab.setOnClickListener {
-      startActivity(Intent(activity, MakeAlarmActivity::class.java))
+    next_2_btn.setOnClickListener {
+      main?.clickNext(1)
     }
+
+    next_1_btn.setOnClickListener {
+      main?.clickNext(1)
+    }
+
+//    setnotification_fab.setOnClickListener {
+//      startActivity(Intent(activity, MakeAlarmActivity::class.java))
+//    }
   }
 
   private val delegate = object : AlarmViewHolder.Delegate {
