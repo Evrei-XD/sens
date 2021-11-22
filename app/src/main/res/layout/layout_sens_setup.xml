@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_chart"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#1d1f2f">
 
     <!-- # Main Layout # -->
     <LinearLayout
@@ -17,42 +18,17 @@
             android:layout_height="0dp"
             android:layout_weight="0.53">
 
-            <ImageView
-                android:id="@+id/previous"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:background="@android:color/transparent"
-                android:padding="10dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_back"
-                android:tint="#ffffff" />
-
             <TextView
                 android:id="@+id/dailyrecord_tv_todaydate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:text="2016-10-21"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAlignment="center"
+                android:text="@string/sens_setup_title"
+                style="@style/Text"
                 android:textColor="#ffffff"
                 android:textSize="23sp" />
-
-            <ImageView
-                android:id="@+id/next"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:background="@android:color/transparent"
-                android:padding="10dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_next"
-                android:tint="#ffffff" />
         </RelativeLayout>
 
         <!-- Body Layout -->
@@ -98,11 +74,12 @@
                 android:layout_height="48dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="0dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_toStartOf="@+id/next_1_btn"
                 android:background="#00ffffff"
                 android:gravity="center"
-                android:text="Next"
+                android:text="@string/next"
+                style="@style/Text"
                 android:textColor="#ffffff"
                 android:textAlignment="center" />
 
@@ -112,9 +89,34 @@
                 android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/ic_next_48" />
+
+            <Button
+                android:id="@+id/back_2_btn"
+                android:layout_width="50dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@+id/back_1_btn"
+                android:background="#00ffffff"
+                android:gravity="center"
+                android:text="@string/back"
+                style="@style/Text"
+                android:textAlignment="center"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/back_1_btn"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/ic_back_48" />
 
         </RelativeLayout>
 

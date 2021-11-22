@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2016 skydoves
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.skydoves.waterdays.ui.activities.main
 
 import android.annotation.SuppressLint
@@ -24,8 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.nfc.NdefMessage
-import android.nfc.NfcAdapter
 import android.os.Bundle
 import com.skydoves.waterdays.R
 import com.skydoves.waterdays.compose.BaseActivity
@@ -42,26 +24,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.GregorianCalendar
 
-/**
- * Created by skydoves on 2016-10-15.
- * Updated by skydoves on 2017-08-17.
- * Copyright (c) 2017 skydoves rights reserved.
- */
 
 @RequirePresenter(MainPresenter::class)
 class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivityView {
 
-  private var nAdapter: NfcAdapter? = null
   private lateinit var mSectionsPagerAdapter: SectionsPagerAdapter
 
-  @SuppressLint("CheckResult")
+  @SuppressLint("CheckResult", "NewApi")
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     initBaseView(this)
+    window.navigationBarColor = resources.getColor(R.color.colorPrimary)
 
-    nAdapter = NfcAdapter.getDefaultAdapter(this)
-    getNFCData(intent)
 
     // auto weather alarm
     weatherAlarm()
@@ -83,7 +58,7 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
   override fun initializeUI() {
     mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
     mainactivity_viewpager.adapter = mSectionsPagerAdapter
-    mainactivity_viewpager.offscreenPageLimit = 5
+    mainactivity_viewpager.offscreenPageLimit = 4
     NavigationUtils.setComponents(baseContext, mainactivity_viewpager, mainactivity_navi)
   }
 
@@ -97,42 +72,17 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
       mainactivity_navi.postDelayed({ model.showBadge() }, 100)
     }, 200)
   }
-  private fun getNFCData(intent: Intent) {
-    if (NfcAdapter.ACTION_NDEF_DISCOVERED == getIntent().action) {
-      val rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
-      if (rawMsgs != null) {
-        val messages = arrayOfNulls<NdefMessage>(rawMsgs.size)
 
-        for (i in rawMsgs.indices)
-          messages[i] = rawMsgs[i] as NdefMessage
-        val payload = messages[0]!!.getRecords()[0].payload
-
-        presenter.addRecord(String(payload))
-        mSectionsPagerAdapter!!.notifyDataSetChanged()
-        showBadge(1)
-      }
-    }
-  }
   override fun onResume() {
     super.onResume()
-    val filter = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)
-    try {
-      filter.addDataType("waterdays_nfc/*")
-    } catch (e: Exception) {
-      e.printStackTrace()
-    }
 
     val i = Intent(this, javaClass)
     i.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
     val pIntent = PendingIntent.getActivity(this, 0, i, 0)
-
-    val filters = arrayOf(filter)
-    nAdapter!!.enableForegroundDispatch(this, pIntent, filters, null)
   }
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
     setIntent(intent)
-    getNFCData(getIntent())
   }
   private fun weatherAlarm() {
     if (!presenter.weatherAlarm) {

@@ -22,7 +22,7 @@
         app:ntb_scaled="true"
         app:ntb_swiped="true"
         app:ntb_tinted="true"
-        android:visibility="visible"
+        android:visibility="gone"
         app:ntb_title_mode="all"
         app:ntb_titled="true" />
 

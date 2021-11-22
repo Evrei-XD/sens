@@ -26,4 +26,10 @@
         <item name="android:textColorSecondary">#ffffff</item>
     </style>
 
+
+    <style name="Text">
+        <item name="android:textColor">#fff</item>
+        <item name="fontFamily">@font/font_open_sans</item>
+    </style>
+
 </resources>

@@ -23,7 +23,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:text="예약된 알람 목록"
+                android:textAlignment="center"
+                android:text="@string/sens_select_title"
+                style="@style/Text"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
                 android:textSize="23sp" />
@@ -58,7 +60,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:text="예약이 없습니다."
+                android:text="Типы датчиков"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
                 android:textSize="22sp"
@@ -70,11 +72,12 @@
                 android:layout_height="48dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="0dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_toStartOf="@+id/next_1_btn"
                 android:background="#00ffffff"
                 android:gravity="center"
-                android:text="Next"
+                android:text="@string/next"
+                style="@style/Text"
                 android:textColor="#ffffff"
                 android:textAlignment="center" />
 
@@ -84,8 +87,8 @@
                 android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/ic_next_48" />
 
         </RelativeLayout>

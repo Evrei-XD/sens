@@ -40,7 +40,6 @@ class DailyDrinkViewHolder(view: View, private val delegate: Delegate) : BaseVie
   override fun bindData(data: Any) {
     this.drink = data as Drink
 
-    itemView.item_dailyrecord_tv_todaydate.setText(drink.date)
     itemView.item_dailyrecord_tv_drinkamount.text = drink.amount
     itemView.item_dailyrecord_imv_main.setImageDrawable(drink.image)
     itemView.item_dailyrecord_btn_delete.setOnClickListener {

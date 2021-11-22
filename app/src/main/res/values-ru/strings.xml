@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">sens</string>
+    <string name="next">Далее</string>
+    <string name="back">Назад</string>
+    <string name="submit_a_report">отправить отчёт</string>
+    <string name="sens_setup_title">Укажите активные зоны электрода</string>
+    <string name="sens_select_title">Выберите тип датчика</string>
+    <string name="parameters_simulation_title">Выберете параметры симуляции</string>
+    <string name="comment_title">Комментарии врача</string>
+</resources>

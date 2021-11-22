@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">물 한잔 해요</string>
+    <string name="app_name">sens</string>
     <string name="start">пиздуй от сюда</string>
     <string name="title_alert">알림</string>
     <string name="title_add_capacity">추가할 컵의 용량(ml)</string>
@@ -14,4 +14,11 @@
     <string name="msg_invalid_input">유효한 값을 입력해주세요.</string>
     <string name="msg_press_long">컵을 2초간 꾹 누르면 해당 용량을 삭제 하실 수 있습니다.</string>
     <string name="msg_edited_capacity">섭취량을 수정하였습니다.</string>
+    <string name="next">Next</string>
+    <string name="back">back</string>
+    <string name="submit_a_report">submit a report</string>
+    <string name="sens_setup_title">Specify active electrode zones</string>
+    <string name="sens_select_title">Select sensor type</string>
+    <string name="parameters_simulation_title">Select simulation options</string>
+    <string name="comment_title">Doctor comments</string>
 </resources>
