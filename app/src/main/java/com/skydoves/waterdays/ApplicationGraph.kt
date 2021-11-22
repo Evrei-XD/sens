@@ -16,12 +16,7 @@
 
 package com.skydoves.waterdays
 
-import com.skydoves.waterdays.presenters.AlarmScreenPresenter
-import com.skydoves.waterdays.presenters.MainPresenter
-import com.skydoves.waterdays.presenters.MakeAlarmPresenter
-import com.skydoves.waterdays.presenters.SelectDrinkPresenter
-import com.skydoves.waterdays.presenters.SetGoalPresenter
-import com.skydoves.waterdays.presenters.SetLocalPresenter
+import com.skydoves.waterdays.presenters.*
 import com.skydoves.waterdays.ui.activities.intro.StartActivity
 import com.skydoves.waterdays.ui.activities.settings.SetBubbleColorActivity
 import com.skydoves.waterdays.ui.fragments.main.Fragment_1
@@ -29,11 +24,6 @@ import com.skydoves.waterdays.ui.fragments.main.Fragment_4_3D
 import com.skydoves.waterdays.ui.fragments.main.Fragment_2
 import com.skydoves.waterdays.ui.fragments.main.Fragment_3
 import com.skydoves.waterdays.utils.AlarmUtils
-
-/**
- * Developed by skydoves on 2017-08-19.
- * Copyright (c) 2017 skydoves rights reserved.
- */
 
 interface ApplicationGraph {
   fun inject(target_: StartActivity)
@@ -61,4 +51,6 @@ interface ApplicationGraph {
   fun inject(target_: SelectDrinkPresenter)
 
   fun inject(target_: SetBubbleColorActivity)
+
+  fun inject(target_: GripperScreenPresenter)
 }

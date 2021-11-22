@@ -2,6 +2,7 @@ package com.skydoves.waterdays.ui.fragments.main
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.skydoves.waterdays.persistence.preference.PreferenceKeys
 import com.skydoves.waterdays.persistence.preference.PreferenceManager
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager
 import com.skydoves.waterdays.ui.activities.main.MainActivity
+import com.skydoves.waterdays.ui.model.GripperSettingsActivity
 import com.skydoves.waterdays.utils.DateUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.layout_parameters_simulation.*
@@ -83,8 +85,16 @@ class Fragment_3 : Fragment() {
           //TODO
            }
 
-    next_1_btn.setOnClickListener { main?.clickNext(3) }
-    next_2_btn.setOnClickListener { main?.clickNext(3) }
+    next_1_btn.setOnClickListener {
+      val intent = Intent(context, GripperSettingsActivity::class.java)
+      startActivity(intent)
+//      main?.clickNext(3)
+    }
+    next_2_btn.setOnClickListener {
+      val intent = Intent(context, GripperSettingsActivity::class.java)
+      startActivity(intent)
+//      main?.clickNext(3)
+    }
     back_1_main_btn.setOnClickListener { main?.clickNext(1) }
     back_2_main_btn.setOnClickListener { main?.clickNext(1) }
   }

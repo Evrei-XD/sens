@@ -60,6 +60,10 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".ui.model.GripperSettingsActivity"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".ui.activities.settings.SetMyCupActivity" />
         <activity android:name=".ui.activities.alarm.AlarmScreenActivity" />

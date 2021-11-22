@@ -21,4 +21,10 @@
     <string name="sens_select_title">Select sensor type</string>
     <string name="parameters_simulation_title">Select simulation options</string>
     <string name="comment_title">Doctor comments</string>
+    <string name="lesson_eight_error_could_not_create_vbo">Could not create vertex buffer object: %s</string>
+    <string name="lesson_eight_error_unknown">Unknown error: %s</string>
+    <string name="save">save</string>
+    <string name="gesture_state_open">open state</string>
+    <string name="finger_position">Rotation:</string>
+    <string name="rotation_state_close">inside</string>
 </resources>
