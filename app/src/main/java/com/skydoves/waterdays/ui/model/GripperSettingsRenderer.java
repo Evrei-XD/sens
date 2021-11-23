@@ -2,11 +2,11 @@ package com.skydoves.waterdays.ui.model;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.Build;
-import android.util.Log;
 import com.skydoves.waterdays.R;
 
 import java.nio.ByteBuffer;
@@ -17,11 +17,10 @@ import java.nio.IntBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.skydoves.waterdays.presenters.Load3DModelNew;
 import com.skydoves.waterdays.common.RawResourceReader;
 import com.skydoves.waterdays.common.ShaderHelper;
 import com.skydoves.waterdays.common.TextureHelper;
-import com.skydoves.waterdays.presenters.Load3DModelNew;
-
 import timber.log.Timber;
 
 import static android.opengl.GLES20.GL_LINEAR;
@@ -212,7 +211,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		heightMap = new HeightMap();
 		heightMap.loader();
 
-		GLES20.glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
+//		GLES20.glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
 
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 		GLES20.glEnable(GLES20.GL_COLOR_BUFFER_BIT);

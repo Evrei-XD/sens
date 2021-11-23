@@ -1,5 +1,6 @@
 package com.skydoves.waterdays.ui.model
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.ActivityManager
 import android.graphics.PixelFormat
@@ -17,10 +18,15 @@ import kotlinx.android.synthetic.main.layout_gripper_settings_le_without_encoder
 @RequirePresenter(GripperScreenPresenter::class)
 class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScreenActivityView>(), GripperScreenActivityView{
 
+    private var renderer: GripperSettingsRenderer? = null
+
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_gripper_settings_le_without_encoders)
         initBaseView(this)
+        window.navigationBarColor = resources.getColor(R.color.colorPrimaryDark)
+        window.statusBarColor = this.resources.getColor(R.color.colorPrimaryDark, theme)
     }
 
     override fun initializeUI() {
@@ -38,7 +44,7 @@ class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScre
 
             val displayMetrics = DisplayMetrics()
             windowManager.defaultDisplay.getMetrics(displayMetrics)
-            val renderer = GripperSettingsRenderer(this, gl_surface_view)
+            renderer = GripperSettingsRenderer(this, gl_surface_view)
             gl_surface_view.setRenderer(renderer, displayMetrics.density)
         }
     }

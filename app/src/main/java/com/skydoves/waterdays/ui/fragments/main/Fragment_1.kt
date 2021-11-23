@@ -1,5 +1,6 @@
 package com.skydoves.waterdays.ui.fragments.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import com.skydoves.waterdays.R
 import com.skydoves.waterdays.WDApplication
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager
 import com.skydoves.waterdays.ui.activities.main.MainActivity
+import com.skydoves.waterdays.ui.model.GripperSettingsActivity
 import com.skydoves.waterdays.utils.AlarmUtils
 import kotlinx.android.synthetic.main.layout_sens_select.*
 import javax.inject.Inject
@@ -38,7 +40,8 @@ class Fragment_1 : Fragment() {
   }
 
   private fun InitializeUI() {
-
+    val intent = Intent(context, GripperSettingsActivity::class.java)
+    startActivity(intent)
     next_2_btn.setOnClickListener { main?.clickNext(1) }
     next_1_btn.setOnClickListener { main?.clickNext(1) }
 
