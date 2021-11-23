@@ -73,6 +73,7 @@ public class GripperSettingsGLSurfaceView extends GLSurfaceView implements Error
 			{
 				if (renderer != null)
 				{
+					if (renderer.selectingNowFlag) { renderer.selectFlag = true; }
 					float deltaX = (x - previousX) / density / 2f;
 					float deltaY = (y - previousY) / density / 2f;
 

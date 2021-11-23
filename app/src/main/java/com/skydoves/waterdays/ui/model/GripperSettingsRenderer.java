@@ -2,7 +2,6 @@ package com.skydoves.waterdays.ui.model;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
@@ -13,10 +12,12 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.skydoves.waterdays.models.ShortWeather;
 import com.skydoves.waterdays.presenters.Load3DModelNew;
 import com.skydoves.waterdays.common.RawResourceReader;
 import com.skydoves.waterdays.common.ShaderHelper;
@@ -93,7 +94,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 	private int lightPosUniform;
 	private int codeSelectUniform;
 	private int textureUniform;
-	private int normalMapUniform;
+//	private int normalMapUniform;
 	private int isUsingNormalMap;
 	private int specularFactorUniform;
 	private int lightPowerUniform;
@@ -116,7 +117,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 	private static final String MV_MATRIX_UNIFORM = "u_MVMatrix";
 	private static final String LIGHT_POSITION_UNIFORM = "u_LightPos";
 	private static final String TEXTURE_UNIFORM = "u_Texture";
-	private static final String NORMAL_MAP_UNIFORM = "u_normalMap";
+//	private static final String NORMAL_MAP_UNIFORM = "u_normalMap";
 	private static final String IS_USING_NORMAL_MAP_UNIFORM = "u_isUsingNormalMap";
 	private static final String SPECULAR_FACTOR_UNIFORM = "u_specularFactor";
 	private static final String LIGHT_POWER_UNIFORM = "u_lightPower";
@@ -170,7 +171,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 
 	/** This is a handle to our cube shading program. */
 	private int program;
-	private int programWithColor;
+//	private int programWithColor;
 	private int programSelect;
 
 
@@ -183,10 +184,14 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 	public volatile float deltaY;
 	public int width;
 	public int height;
-	public boolean selectFlag;
+	public boolean selectFlag;//флаг, позволяющий выбрать фрагмент при опускании пальца на экран
+	public boolean selectingNowFlag;//флаг, информирующий о том, выбран сейчас хоть один фрагмент или нет
 	public boolean transferFlag;
 	private boolean firstInit = false;
-	private boolean firstPrint = true;
+	private final int[] selectionStationFragments = new int[MAX_NUMBER_DETAILS+1]; //массив 0-1 состояния каждого объекта
+	private ArrayList<Integer> selectFragment = new ArrayList<>(); //номера фрагментов, списка отрисовываются выделенными
+	private ArrayList<Integer> unselectFragment = new ArrayList<>(); //номера фрагментов, списка отрисовываются невыделенными
+//	private boolean firstPrint = true;
 
 	/** The current heightmap object. */
 	private HeightMap heightMap;
@@ -194,6 +199,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 	/** массивы вершин и индексов в которые упаковываются данные из строковых переменных*/
 	private float angle90 = 90;
 	private static final int MAX_NUMBER_DETAILS = 134;//134
+	private int lastSelectTemp = 0;
 	private int selectTemp = 0;
 
 	public String selectStation;
@@ -239,7 +245,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 
 		final String vertexShader = RawResourceReader.readTextFileFromRawResource(gripperSettingsActivity, R.raw.per_pixel_vertex_shader_tex_and_light);
 		final String fragmentShader = RawResourceReader.readTextFileFromRawResource(gripperSettingsActivity, R.raw.per_pixel_fragment_shader_general);
-		final String fragmentShaderWithColor = RawResourceReader.readTextFileFromRawResource(gripperSettingsActivity, R.raw.per_pixel_fragment_shader_tex_color_light);
+//		final String fragmentShaderWithColor = RawResourceReader.readTextFileFromRawResource(gripperSettingsActivity, R.raw.per_pixel_fragment_shader_tex_color_light);
 //		final String fragmentShaderRubber = RawResourceReader.readTextFileFromRawResource(gripperSettingsActivity, R.raw.per_pixel_fragment_shader_rubber);
 //		final String fragmentShaderRubberWithColor = RawResourceReader.readTextFileFromRawResource(gripperSettingsActivity, R.raw.per_pixel_fragment_shader_rubber_with_color);
 		final String selectVertexShader = RawResourceReader.readTextFileFromRawResource(gripperSettingsActivity, R.raw.select_vertex_shader);
@@ -254,7 +260,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 
 		final int vertexShaderHandle = ShaderHelper.compileShader(GLES20.GL_VERTEX_SHADER, vertexShader);
 		final int fragmentShaderHandle = ShaderHelper.compileShader(GLES20.GL_FRAGMENT_SHADER, fragmentShader);
-		final int fragmentShaderWithColorHandle = ShaderHelper.compileShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderWithColor);
+//		final int fragmentShaderWithColorHandle = ShaderHelper.compileShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderWithColor);
 //		final int fragmentShaderRubberHandle = ShaderHelper.compileShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderRubber);
 //		final int fragmentShaderRubberWithColorHandle = ShaderHelper.compileShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderRubberWithColor);
 		final int selectVertexShaderHandle = ShaderHelper.compileShader(GLES20.GL_VERTEX_SHADER, selectVertexShader);
@@ -265,8 +271,8 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 
 		program = ShaderHelper.createAndLinkProgram(vertexShaderHandle, fragmentShaderHandle, new String[] {
 				POSITION_ATTRIBUTE, NORMAL_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURES_ATTRIBUTE, TANGENT_ATTRIBUTE, BITANGENT_ATTRIBUTE});
-		programWithColor = ShaderHelper.createAndLinkProgram(vertexShaderHandle, fragmentShaderWithColorHandle, new String[]{
-				POSITION_ATTRIBUTE, NORMAL_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURES_ATTRIBUTE, TANGENT_ATTRIBUTE, BITANGENT_ATTRIBUTE});
+//		programWithColor = ShaderHelper.createAndLinkProgram(vertexShaderHandle, fragmentShaderWithColorHandle, new String[]{
+//				POSITION_ATTRIBUTE, NORMAL_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURES_ATTRIBUTE, TANGENT_ATTRIBUTE, BITANGENT_ATTRIBUTE});
 //		int programRubber = ShaderHelper.createAndLinkProgram(vertexShaderHandle, fragmentShaderRubberHandle, new String[]{
 //				POSITION_ATTRIBUTE, NORMAL_ATTRIBUTE, COLOR_ATTRIBUTE, TEXTURES_ATTRIBUTE});
 //		int programRubberWithColor = ShaderHelper.createAndLinkProgram(vertexShaderHandle, fragmentShaderRubberWithColorHandle, new String[]{
@@ -316,6 +322,12 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		Matrix.setIdentityM(accumulatedRotationLittleFinger2, 0);
 		Matrix.setIdentityM(accumulatedRotationGeneral, 0);
 		selectStation = "UNSELECTED_OBJECT";
+
+		//обнуленуление всего массива выбранных объектов
+		for (int i = 0; i<MAX_NUMBER_DETAILS; i++) {
+			selectionStationFragments[i] = 0;
+			unselectFragment.add(i);
+		}
 	}
 
 	@Override
@@ -404,7 +416,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		bitangentAttribute = GLES20.glGetAttribLocation(program, BITANGENT_ATTRIBUTE);
 		lightPosUniform = glGetUniformLocation(program, LIGHT_POSITION_UNIFORM);
 		textureUniform = glGetUniformLocation(program, TEXTURE_UNIFORM);
-		normalMapUniform = glGetUniformLocation(program, NORMAL_MAP_UNIFORM);
+//		normalMapUniform = glGetUniformLocation(program, NORMAL_MAP_UNIFORM);
 		isUsingNormalMap = glGetUniformLocation(program, IS_USING_NORMAL_MAP_UNIFORM);
 		specularFactorUniform = glGetUniformLocation(program, SPECULAR_FACTOR_UNIFORM);
 		lightPowerUniform = glGetUniformLocation(program, LIGHT_POWER_UNIFORM);
@@ -424,8 +436,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		GLES20.glUniform1i(textureUniform, 4);
 
 		for (int i = 1; i<MAX_NUMBER_DETAILS; i+=2){
-			if (selectTemp != i+1) {
-
+			if (selectionStationFragments[i+1] == 0) {
 				heightMap.render(new int[]{i});
 			}
 		}
@@ -439,40 +450,93 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 
 		for (int i = 0; i<MAX_NUMBER_DETAILS; i+=2){
 			if ( i != 16 ) {//куски 16 и 2 встают на одно место поэтому 16-й выпиливается
-				if (selectTemp != i+1) {
+				if (selectionStationFragments[i+1] == 0) {
 					heightMap.render(new int[]{i});
 				}
 			}
 		}
 
-		for (int i = 0; i<MAX_NUMBER_DETAILS; i++){
-			if (selectTemp == i+1) {
 
-				GLES20.glUniform1i(isUsingNormalMap, 0);
-				GLES20.glUniform1f(specularFactorUniform, 20.0f);
-				GLES20.glUniform1f(lightPowerUniform, 1400.0f);
-				GLES20.glUniform1f(ambientFactorUniform, 1.0f);
-				GLES20.glUniform1i(textureUniform, 5);
 
-				heightMap.render(new int[]{i});
-//				System.err.println("Выбрана деталь №"+i);
-				return;
+
+
+		if (selectTemp != lastSelectTemp ) {
+//			System.err.println("============================================");
+//			System.err.println("============================================");
+//			System.err.println("selectTemp != lastSelectTemp");
+			if (selectTemp == 0 ) {
+				//TODO
+//				System.err.println("selectTemp = 0");
+				selectingNowFlag = false;
+				unselectFragment.clear();
+				for (int i = 0; i<MAX_NUMBER_DETAILS; i++) {
+					selectionStationFragments[i] = 0;
+					unselectFragment.add(i);
+				}
+				selectFragment.clear();
+			} else {
+//				System.err.println("selectTemp != 0");
+				selectingNowFlag = true;
+				if (selectionStationFragments[selectTemp] == 0) {
+					selectionStationFragments[selectTemp] = 1;
+				} else {
+					selectionStationFragments[selectTemp] = 0;
+				}
+
+				boolean check = false;
+				for (int i = 0; i<selectFragment.size(); i++){
+					if (selectFragment.get(i) == selectTemp) {
+						check = true;
+						selectFragment.remove(i);
+					}
+				}
+				if (!check) { selectFragment.add(selectTemp); }
+
+				boolean check2 = false;
+				for (int i = 0; i<unselectFragment.size(); i++){
+					if (unselectFragment.get(i) == selectTemp) {
+						check2 = true;
+						unselectFragment.remove(i);
+					}
+				}
+				if (!check2) { unselectFragment.add(selectTemp); }
+			}
+			lastSelectTemp = selectTemp;
+			for (int j = 0; j<selectFragment.size(); j++){
+//				System.err.println(selectFragment.get(j));
+			}
+//			System.err.println("============================================");
+			for (int j = 0; j<unselectFragment.size(); j++){
+//				System.err.println(unselectFragment.get(j));
+			}
+//			System.err.println("============================================");
+//			System.err.println("============================================");
+		}
+
+		System.err.println("============================================");
+		System.err.println("============================================");
+		GLES20.glUniform1i(isUsingNormalMap, 0);
+		GLES20.glUniform1f(specularFactorUniform, 20.0f);
+		GLES20.glUniform1f(lightPowerUniform, 1400.0f);
+		GLES20.glUniform1f(ambientFactorUniform, 1.0f);
+		GLES20.glUniform1i(textureUniform, 5);
+
+		for (int j = 0; j<selectFragment.size(); j++){
+			for (int i = 0; i<MAX_NUMBER_DETAILS; i++){
+				if (selectFragment.get(j) == i+1) {
+					heightMap.render(new int[]{i});
+					System.err.println("Выбрана деталь №"+i);
+				}
 			}
 		}
-
-		if (selectTemp == 0 ) {
-
-		}
+//		System.err.println("============================================");
+//		System.err.println("============================================");
 	}
 
 	private void firstInit () {  }
 
 	private int selectObject () {
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-		//TODO отрисовка каждой детальки, со своим цветовым кодом
-		//TODO перенести механизм заполнения юниформы шейдера выделения
-
-
 		GLES20.glUseProgram(programSelect);
 
 		mvpMatrixUniform = GLES20.glGetUniformLocation(programSelect, MVP_MATRIX_UNIFORM);
