@@ -211,19 +211,17 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		heightMap = new HeightMap();
 		heightMap.loader();
 
-//		GLES20.glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
-
 		GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 		GLES20.glEnable(GLES20.GL_COLOR_BUFFER_BIT);
 
 		// Position the eye in front of the origin.
 		final float eyeX = 0.0f;
 		final float eyeY = 0.0f;
-		final float eyeZ = 150.0f;
+		final float eyeZ = 170.0f;
 
 		// We are looking toward the distance (бесполезная хрень, не на что невлияет)
 		final float lookX = 0.0f;
-		final float lookY = 0.0f;
+		final float lookY = -25.0f;
 		final float lookZ = 0.0f;
 
 		// Set our up vector. This is where our head would be pointing were we
@@ -372,17 +370,19 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		Matrix.rotateM(currentRotation, 0, angle90, 0.0f, 0.0f, 1.0f);
 		Matrix.rotateM(currentRotation, 0, angle90, 1.0f, 0.0f, 0.0f);
 		angle90 = 0;
-		Matrix.rotateM(currentRotation, 0, deltaY, 1.0f, 0.0f, 0.0f);
-		Matrix.rotateM(currentRotation, 0, deltaX, 0.0f, 1.0f, 0.0f);
-		deltaX = 0.0f;
-		deltaY = 0.0f;
+
+		if (selectTemp == 0) {
+			Matrix.rotateM(currentRotation, 0, deltaY, 1.0f, 0.0f, 0.0f);
+			Matrix.rotateM(currentRotation, 0, deltaX, 0.0f, 1.0f, 0.0f);
+			deltaX = 0.0f;
+			deltaY = 0.0f;
+		}
 
 		Matrix.multiplyMM(temporaryMatrix, 0, currentRotation, 0, accumulatedRotationGeneral, 0);
 		System.arraycopy(temporaryMatrix, 0, accumulatedRotationGeneral, 0, 16);
 
 		Matrix.multiplyMM(temporaryMatrix, 0, accumulatedRotationGeneral, 0, modelMatrix, 0);
 		System.arraycopy(temporaryMatrix, 0, modelMatrix, 0, 16);
-
 
 		/** составления матриц вида и проекции */
 		Matrix.multiplyMM(mvpMatrix, 0, viewMatrix, 0, modelMatrix, 0);
@@ -455,9 +455,13 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 				GLES20.glUniform1i(textureUniform, 5);
 
 				heightMap.render(new int[]{i});
-				System.err.println("Выбрана деталь №"+i);
+//				System.err.println("Выбрана деталь №"+i);
 				return;
 			}
+		}
+
+		if (selectTemp == 0 ) {
+
 		}
 	}
 
@@ -479,12 +483,14 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		Matrix.setIdentityM(modelMatrix, 0);
 		Matrix.translateM(modelMatrix, 0, 0.0f, 0.0f, 0.0f);
 
-		/** поворот всей сборки */
-		Matrix.setIdentityM(currentRotation, 0);
-		Matrix.rotateM(currentRotation, 0, deltaY, 0.0f, 1.0f, 0.0f);
-		Matrix.rotateM(currentRotation, 0, deltaX, 1.0f, 0.0f, 0.0f);
-		deltaX = 0.0f;
-		deltaY = 0.0f;
+		if (selectTemp == 0) {
+			/** поворот всей сборки */
+			Matrix.setIdentityM(currentRotation, 0);
+			Matrix.rotateM(currentRotation, 0, deltaY, 0.0f, 1.0f, 0.0f);
+			Matrix.rotateM(currentRotation, 0, deltaX, 1.0f, 0.0f, 0.0f);
+			deltaX = 0.0f;
+			deltaY = 0.0f;
+		}
 
 		Matrix.multiplyMM(temporaryMatrix, 0, currentRotation, 0, accumulatedRotationGeneral, 0);
 		System.arraycopy(temporaryMatrix, 0, accumulatedRotationGeneral, 0, 16);
@@ -514,7 +520,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		deltaX = 0.0f;
 		deltaY = 0.0f;
 
-		System.err.println("selectObject Выбрана деталь №"+ castUnsignedCharToInt(res.get(0)));
+//		System.err.println("selectObject Выбрана деталь №"+ castUnsignedCharToInt(res.get(0)));
 		return castUnsignedCharToInt(res.get(0));
 	}
 
