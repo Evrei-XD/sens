@@ -424,7 +424,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		GLES20.glUniform1i(textureUniform, 4);
 
 		for (int i = 1; i<MAX_NUMBER_DETAILS; i+=2){
-			if (selectTemp != i) {
+			if (selectTemp != i+1) {
 
 				heightMap.render(new int[]{i});
 			}
@@ -438,15 +438,15 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 
 
 		for (int i = 0; i<MAX_NUMBER_DETAILS; i+=2){
-			if ( i != 16 ) {//куски 16 и 2 встают на одно место
-				if (selectTemp != i) {
+			if ( i != 16 ) {//куски 16 и 2 встают на одно место поэтому 16-й выпиливается
+				if (selectTemp != i+1) {
 					heightMap.render(new int[]{i});
 				}
 			}
 		}
 
 		for (int i = 0; i<MAX_NUMBER_DETAILS; i++){
-			if (selectTemp == i) {
+			if (selectTemp == i+1) {
 
 				GLES20.glUniform1i(isUsingNormalMap, 0);
 				GLES20.glUniform1f(specularFactorUniform, 20.0f);
@@ -500,7 +500,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		GLES20.glUniformMatrix4fv(mvpMatrixUniform, 1, false, mvpMatrix, 0);
 
 		for (int i = 0; i<MAX_NUMBER_DETAILS; i++) {
-			GLES20.glUniform1f(codeSelectUniform, i);
+			GLES20.glUniform1f(codeSelectUniform, i+1);
 			heightMap.render(new int[]{i});
 		}
 
