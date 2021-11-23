@@ -12,7 +12,7 @@ import com.skydoves.waterdays.compose.BaseActivity
 import com.skydoves.waterdays.compose.qualifiers.RequirePresenter
 import com.skydoves.waterdays.presenters.GripperScreenPresenter
 import com.skydoves.waterdays.viewTypes.GripperScreenActivityView
-import kotlinx.android.synthetic.main.layout_gripper_settings_le_without_encoders.*
+import kotlinx.android.synthetic.main.model_tree_d.*
 
 
 @RequirePresenter(GripperScreenPresenter::class)
@@ -23,7 +23,7 @@ class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScre
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_gripper_settings_le_without_encoders)
+        setContentView(R.layout.model_tree_d)
         initBaseView(this)
         window.navigationBarColor = resources.getColor(R.color.colorPrimaryDark)
         window.statusBarColor = this.resources.getColor(R.color.colorPrimaryDark, theme)

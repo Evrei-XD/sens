@@ -297,6 +297,10 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		//Load the texture6
 		GLES20.glActiveTexture(GLES20.GL_TEXTURE5);
+		int textureSTR2Part10 = TextureHelper.loadTexture(gripperSettingsActivity, R.drawable.select_part);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		GLES20.glBindTexture(GL_TEXTURE_2D, textureSTR2Part10);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
 
@@ -333,17 +337,6 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		final float far = 300.0f;//2000
 
 		Matrix.frustumM(projectionMatrix, 0, left, ratio, bottom, top, near, far);
-
-		if (firstPrint) {
-			for (int i = 1; i<=MAX_NUMBER_DETAILS; i++) {
-				String text = "SELECT_PART_";
-				selectStation = text + i;
-				if (selectStation.equals("SELECT_PART_35")) {
-					System.err.println("string  SelectStation: " + selectStation);
-				}
-			}
-			firstPrint = false;
-		}
 	}
 
 	@Override
@@ -369,17 +362,6 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		Matrix.translateM(lightModelMatrix, 0, 0.0f, 0.0f, 180.0f);
 		Matrix.multiplyMV(lightPosInWorldSpace, 0, lightModelMatrix, 0, lightPosInModelSpace, 0);
 		Matrix.multiplyMV(lightPosInEyeSpace, 0, viewMatrix, 0, lightPosInWorldSpace, 0);
-
-		//TODO создаём цикл для создания составной переменной строки
-		if (firstPrint) {
-			for (int i = 0; i<MAX_NUMBER_DETAILS; i++) {
-				String text = "SELECT_PART_";
-				System.err.println(text + i);
-			}
-			firstPrint = false;
-		}
-
-
 
 		/** код загрузки всех деталей руки в начальные координаты для возвращения большого пальца в начальное положение в конструкции*/
 		Matrix.setIdentityM(modelMatrix, 0);
@@ -443,6 +425,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 
 		for (int i = 1; i<MAX_NUMBER_DETAILS; i+=2){
 			if (selectTemp != i) {
+
 				heightMap.render(new int[]{i});
 			}
 		}
@@ -453,8 +436,9 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		GLES20.glUniform1f(ambientFactorUniform, 0.92f);
 		GLES20.glUniform1i(textureUniform, 3);
 
-		for (int i = 14; i<MAX_NUMBER_DETAILS; i+=2){
-			if (i != 16 || i != 14 ) {
+
+		for (int i = 0; i<MAX_NUMBER_DETAILS; i+=2){
+			if ( i != 16 ) {//куски 16 и 2 встают на одно место
 				if (selectTemp != i) {
 					heightMap.render(new int[]{i});
 				}
