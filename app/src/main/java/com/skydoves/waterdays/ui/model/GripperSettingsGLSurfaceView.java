@@ -95,6 +95,7 @@ public class GripperSettingsGLSurfaceView extends GLSurfaceView implements Error
 					renderer.transferFlag = true;
 				}
 			}
+			assert renderer != null;
 			renderer.X = x;
 			renderer.Y = y;
 			previousX = x;
@@ -103,7 +104,7 @@ public class GripperSettingsGLSurfaceView extends GLSurfaceView implements Error
 		}
 		else
 		{
-			return super.onTouchEvent(event);
+			return super.onTouchEvent(null);
 		}
 	}
 

@@ -27,4 +27,6 @@
     <string name="gesture_state_open">open state</string>
     <string name="finger_position">Rotation:</string>
     <string name="rotation_state_close">inside</string>
+    <string name="temperature">temperature</string>
+    <string name="_1">0</string>
 </resources>

@@ -31,4 +31,7 @@ object PreferenceKeys {
   val CUP_CAPICITY = Pair("MyCup", "0")
   val ALARM_WEAHTER = Pair("setWeatherAlarm", false)
   val BUBBLE_COLOR = Pair("BUBBLE_COLOR", "#1c9ade")
+  const val SENSES_ONE = "SENSES_ONE"
+  const val SENSES_TWO = "SENSES_TWO"
+  const val SENSES_THREE = "SENSES_THREE"
 }

@@ -18,12 +18,6 @@ package com.skydoves.waterdays.persistence.preference
 
 import android.content.Context
 
-/**
- * Created by skydoves on 2016-10-15.
- * Updated by skydoves on 2017-08-17.
- * Copyright (c) 2017 skydoves rights reserved.
- */
-
 class PreferenceManager(private val mContext: Context) {
 
   fun getBoolean(key: String, default_value: Boolean): Boolean {

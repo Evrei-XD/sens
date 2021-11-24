@@ -223,7 +223,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		// Position the eye in front of the origin.
 		final float eyeX = 0.0f;
 		final float eyeY = 0.0f;
-		final float eyeZ = 170.0f;
+		final float eyeZ = 180.0f;
 
 		// We are looking toward the distance (бесполезная хрень, не на что невлияет)
 		final float lookX = 0.0f;
@@ -513,8 +513,8 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 //			System.err.println("============================================");
 		}
 
-		System.err.println("============================================");
-		System.err.println("============================================");
+//		System.err.println("============================================");
+//		System.err.println("============================================");
 		GLES20.glUniform1i(isUsingNormalMap, 0);
 		GLES20.glUniform1f(specularFactorUniform, 20.0f);
 		GLES20.glUniform1f(lightPowerUniform, 1400.0f);
@@ -525,7 +525,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 			for (int i = 0; i<MAX_NUMBER_DETAILS; i++){
 				if (selectFragment.get(j) == i+1) {
 					heightMap.render(new int[]{i});
-					System.err.println("Выбрана деталь №"+i);
+//					System.err.println("Выбрана деталь №"+i);
 				}
 			}
 		}

@@ -23,6 +23,7 @@ import com.skydoves.waterdays.ui.fragments.main.Fragment_1
 import com.skydoves.waterdays.ui.fragments.main.Fragment_4_3D
 import com.skydoves.waterdays.ui.fragments.main.Fragment_2
 import com.skydoves.waterdays.ui.fragments.main.Fragment_3
+import com.skydoves.waterdays.ui.model.GripperSettingsActivity
 import com.skydoves.waterdays.utils.AlarmUtils
 
 interface ApplicationGraph {

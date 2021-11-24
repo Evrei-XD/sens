@@ -8,4 +8,6 @@
     <string name="sens_select_title">Выберите тип датчика</string>
     <string name="parameters_simulation_title">Выберете параметры симуляции</string>
     <string name="comment_title">Комментарии врача</string>
+    <string name="temperature">температура</string>
+    <string name="_1">0</string>
 </resources>

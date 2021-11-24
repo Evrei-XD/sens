@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,21 +12,147 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="96dp"
         android:layout_gravity="bottom|center_horizontal"
+        android:weightSum="2"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/gripper_use_le_save"
+        <RelativeLayout
+            android:id="@+id/characteristics_rl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:text="@string/save"
-            android:layout_gravity="center"
-            android:textColor="#FFFFFFFF"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:visibility="visible" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:weightSum="4"
+                android:baselineAligned="false"
+                tools:ignore="UselessParent">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.2">
+
+                    <TextView
+                        android:id="@+id/characteristics_text_tv"
+                        style="@style/Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="0dp"
+                        android:textSize="14sp"
+                        android:text="@string/temperature"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3">
+
+                    <TextView
+                        android:id="@+id/characteristics_tv"
+                        style="@style/Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/_1"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5">
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/characteristics_sb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:max="10"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="0dp"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/track_le"
+                        android:thumb="@drawable/thumb_le" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/peak_time_rl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/gripper_use_le_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:text="@string/save"
+                android:layout_gravity="center"
+                android:textColor="#FFFFFFFF"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:visibility="visible" />
+        </RelativeLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="8dp"
+        android:weightSum="3"
+        android:orientation="vertical"
+        tools:ignore="RtlHardcoded">
+
+    <ImageButton
+        android:id="@+id/senses_one"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="0dp"
+        android:textColor="#FFFFFFFF"
+        android:src="@drawable/fire"
+        style="@style/Text"
+        android:background="@drawable/custom_button_le_border"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/senses_two"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="0dp"
+        android:textColor="#FFFFFFFF"
+        android:src="@drawable/fingerprint"
+        style="@style/Text"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_button_le_border"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/senses_three"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="0dp"
+        android:textColor="#FFFFFFFF"
+        android:src="@drawable/knife"
+        style="@style/Text"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_button_le_border"
+        tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+
 </FrameLayout>
 
 <!--//////////////////////////////////////////////////////-->
