@@ -20,6 +20,8 @@ import com.skydoves.waterdays.WDApplication
 import com.skydoves.waterdays.consts.CapacityDrawable
 import com.skydoves.waterdays.events.rx.RxUpdateMainEvent
 import com.skydoves.waterdays.models.Drink
+import com.skydoves.waterdays.persistence.preference.PreferenceKeys
+import com.skydoves.waterdays.persistence.preference.PreferenceManager
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager
 import com.skydoves.waterdays.ui.activities.main.MainActivity
 import com.skydoves.waterdays.ui.adapters.DailyDrinkAdapter
@@ -30,6 +32,8 @@ import javax.inject.Inject
 
 class Fragment_2 : Fragment() {
 
+  @Inject
+  lateinit var preferenceManager: PreferenceManager
   @Inject
   lateinit var sqliteManager: SqliteManager
 
@@ -67,6 +71,8 @@ class Fragment_2 : Fragment() {
     next_2_btn.setOnClickListener { main?.clickNext(2) }
     back_1_btn.setOnClickListener { main?.clickNext(0) }
     back_2_btn.setOnClickListener { main?.clickNext(0) }
+
+    preferenceManager.putInt(PreferenceKeys.NEXT_STAGE, 0)
   }
 
   /**

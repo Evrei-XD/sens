@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -27,7 +29,7 @@
                 android:text="@string/comment_title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
-                android:textSize="25dp" />
+                android:textSize="25sp" />
 
         </RelativeLayout>
 
@@ -35,14 +37,29 @@
             android:id="@+id/layout_body"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2.5">
+            android:layout_weight="2.9">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp"
+                android:hint="@string/comment"
+                android:textColorHint="@color/gray"
+                style="@style/Text"
+                android:background="@color/colorPrimary"
+                android:textColor="#ffffff"/>
 
         </RelativeLayout>
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.8">
+                android:layout_weight="0.4">
 
                 <Button
                     android:id="@+id/next_2_btn"
@@ -57,7 +74,8 @@
                     android:text="@string/submit_a_report"
                     style="@style/Text"
                     android:textColor="#ffffff"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    tools:ignore="RelativeOverlap" />
 
                 <Button
                     android:id="@+id/next_1_btn"

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.skydoves.waterdays.R
 import com.skydoves.waterdays.WDApplication
+import com.skydoves.waterdays.persistence.preference.PreferenceKeys
+import com.skydoves.waterdays.persistence.preference.PreferenceManager
 import com.skydoves.waterdays.persistence.sqlite.SqliteManager
 import com.skydoves.waterdays.ui.activities.main.MainActivity
 import com.skydoves.waterdays.utils.DateUtils
@@ -17,6 +19,8 @@ import javax.inject.Inject
 
 class Fragment_4_3D : Fragment() {
 
+  @Inject
+  lateinit var preferenceManager: PreferenceManager
   @Inject
   lateinit var sqliteManager: SqliteManager
 
@@ -42,5 +46,13 @@ class Fragment_4_3D : Fragment() {
     next_2_btn.setOnClickListener { main?.clickNext(4) }
     back_1_chart_btn.setOnClickListener { main?.clickNext(2) }
     back_2_chart_btn.setOnClickListener { main?.clickNext(2) }
+  }
+
+  override fun onResume() {
+    super.onResume()
+
+    if (preferenceManager.getInt(PreferenceKeys.NEXT_STAGE, 0) == 1) {
+      main?.clickNext(4)
+    }
   }
 }

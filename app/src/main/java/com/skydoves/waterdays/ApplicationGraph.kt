@@ -19,10 +19,7 @@ package com.skydoves.waterdays
 import com.skydoves.waterdays.presenters.*
 import com.skydoves.waterdays.ui.activities.intro.StartActivity
 import com.skydoves.waterdays.ui.activities.settings.SetBubbleColorActivity
-import com.skydoves.waterdays.ui.fragments.main.Fragment_1
-import com.skydoves.waterdays.ui.fragments.main.Fragment_4_3D
-import com.skydoves.waterdays.ui.fragments.main.Fragment_2
-import com.skydoves.waterdays.ui.fragments.main.Fragment_3
+import com.skydoves.waterdays.ui.fragments.main.*
 import com.skydoves.waterdays.ui.model.GripperSettingsActivity
 import com.skydoves.waterdays.utils.AlarmUtils
 
@@ -39,15 +36,17 @@ interface ApplicationGraph {
 
   fun inject(target_: MainPresenter)
 
-  fun inject(target_: Fragment_1)
-
   fun inject(target_: AlarmUtils)
+
+  fun inject(target_: Fragment_5)
 
   fun inject(target_: Fragment_4_3D)
 
   fun inject(target_: Fragment_3)
 
   fun inject(target_: Fragment_2)
+
+  fun inject(target_: Fragment_1)
 
   fun inject(target_: SelectDrinkPresenter)
 

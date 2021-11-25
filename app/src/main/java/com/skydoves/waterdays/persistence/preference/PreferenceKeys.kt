@@ -34,4 +34,6 @@ object PreferenceKeys {
   const val SENSES_ONE = "SENSES_ONE"
   const val SENSES_TWO = "SENSES_TWO"
   const val SENSES_THREE = "SENSES_THREE"
+  const val MOTOR_RESPONSE = "MOTOR_RESPONSE"
+  const val NEXT_STAGE = "NEXT_STAGE"
 }

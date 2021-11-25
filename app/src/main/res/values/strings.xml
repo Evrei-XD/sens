@@ -29,4 +29,6 @@
     <string name="rotation_state_close">inside</string>
     <string name="temperature">temperature</string>
     <string name="_1">0</string>
+    <string name="save_frame">save frame</string>
+    <string name="comment">Enter you comment</string>
 </resources>

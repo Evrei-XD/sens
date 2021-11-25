@@ -50,55 +50,23 @@ class Fragment_3 : Fragment() {
 
   @SuppressLint("SetTextI18n", "CheckResult")
   private fun initializeUI() {
-    // get today's drink amount
-    val dAmount = sqliteManager.getDayDrinkAmount(DateUtils.getFarDay(0)).toFloat()
-    var dGoal = Integer.parseInt(preferenceManager.getString(PreferenceKeys.WATER_GOAL.first, PreferenceKeys.WATER_GOAL.second)).toFloat()
-
-    if (dGoal <= 0) dGoal = 1f
-
-    // textView - Goal
-    drinkamount_tv_goal.text = "${dGoal.toInt()}ml"
-
-    // textView - Drunk
-    drinkamount_tv_drunk.text = "${dAmount.toInt()}ml"
-
-    // textView - require drinking amount
-    if (dAmount < dGoal) {
-      drinkamount_tv_requireamount.text = "${(dGoal - dAmount).toInt()}ml"
-    } else {
-      drinkamount_tv_requireamount.text = "0ml"
-    }
-
-    // textView - today's Reh
-    drinkamount_tv_rh.text = preferenceManager.getString(key = "Reh", default_value = "60") + "%"
-
-    val viewSize = resources.getDimensionPixelSize(R.dimen.fourthSampleViewSize)
-    val params = RelativeLayout.LayoutParams(viewSize, viewSize)
-    params.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 220f, resources.displayMetrics).toInt()
-    params.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 305f, resources.displayMetrics).toInt()
-    params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
-
-
-    RxUpdateMainEvent.getInstance().observable
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-          //TODO
-           }
-
     next_1_btn.setOnClickListener {
       val intent = Intent(context, GripperSettingsActivity::class.java)
       startActivity(intent)
-//      main?.clickNext(3)
     }
     next_2_btn.setOnClickListener {
       val intent = Intent(context, GripperSettingsActivity::class.java)
       startActivity(intent)
-//      main?.clickNext(3)
     }
     back_1_main_btn.setOnClickListener { main?.clickNext(1) }
     back_2_main_btn.setOnClickListener { main?.clickNext(1) }
   }
 
-
+  override fun onResume() {
+    super.onResume()
+    if (preferenceManager.getInt(PreferenceKeys.NEXT_STAGE, 0) == 1) {
+      main?.clickNext(3)
+    }
+  }
 
 }

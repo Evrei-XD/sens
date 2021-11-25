@@ -85,7 +85,7 @@ public class GripperSettingsGLSurfaceView extends GLSurfaceView implements Error
 					if (deltaY < -30) {deltaY = 0;}
 
 					renderer.deltaX += deltaX;
-					renderer.deltaY += deltaY;
+					renderer.deltaY += 0;
 				}
 			}
 			if (event.getAction() == MotionEvent.ACTION_UP)

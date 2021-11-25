@@ -10,4 +10,6 @@
     <string name="comment_title">Комментарии врача</string>
     <string name="temperature">температура</string>
     <string name="_1">0</string>
+    <string name="save_frame">сохр кадр</string>
+    <string name="comment">Введите комментарий</string>
 </resources>

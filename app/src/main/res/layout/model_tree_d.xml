@@ -93,16 +93,88 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <Button
-                android:id="@+id/gripper_use_le_save"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="0dp"
-                android:text="@string/save"
-                android:layout_gravity="center"
-                android:textColor="#FFFFFFFF"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:visibility="visible" />
+                android:layout_height="96dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:weightSum="3"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+                <RelativeLayout
+                    android:id="@+id/peak_tme_rl"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <Button
+                        android:id="@+id/back_2_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_toEndOf="@+id/back_1_btn"
+                        android:background="#00ffffff"
+                        android:gravity="center"
+                        android:text="@string/back"
+                        style="@style/Text"
+                        android:textAlignment="center"
+                        android:textColor="#ffffff" />
+
+                    <Button
+                        android:id="@+id/back_1_btn"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/ic_back_48" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/save_frame_rl"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <Button
+                        android:id="@+id/save_frame"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp"
+                        android:text="@string/save_frame"
+                        android:layout_gravity="center"
+                        android:background="#05ffffff"
+                        android:textColor="#FFFFFFFF"
+                        style="@style/Text"
+                        android:visibility="visible" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/peak_te_rl"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <Button
+                        android:id="@+id/next_2_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="0dp"
+                        android:layout_toStartOf="@+id/next_1_btn"
+                        android:background="#00ffffff"
+                        android:gravity="center"
+                        android:text="@string/next"
+                        style="@style/Text"
+                        android:textColor="#ffffff"
+                        android:textAlignment="center" />
+
+                    <Button
+                        android:id="@+id/next_1_btn"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/ic_next_48" />
+                </RelativeLayout>
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 
@@ -111,7 +183,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
         android:layout_marginRight="8dp"
-        android:weightSum="3"
+        android:weightSum="4"
         android:orientation="vertical"
         tools:ignore="RtlHardcoded">
 
@@ -125,6 +197,16 @@
         style="@style/Text"
         android:background="@drawable/custom_button_le_border"
         tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/senses_one_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-13dp"
+        android:textSize="8sp"
+        android:text="1"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal"
+        tools:ignore="HardcodedText,SmallSp" />
 
     <ImageButton
         android:id="@+id/senses_two"
@@ -137,6 +219,16 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/custom_button_le_border"
         tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/senses_two_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-13dp"
+        android:textSize="8sp"
+        android:text="1"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal"
+        tools:ignore="HardcodedText,SmallSp" />
 
     <ImageButton
         android:id="@+id/senses_three"
@@ -149,6 +241,38 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/custom_button_le_border"
         tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/senses_three_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-13dp"
+        android:textSize="8sp"
+        android:text="1"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal"
+        tools:ignore="HardcodedText,SmallSp" />
+
+    <ImageButton
+        android:id="@+id/motor_response"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="0dp"
+        android:textColor="#FFFFFFFF"
+        android:src="@drawable/motor_response"
+        style="@style/Text"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_button_le_border"
+        tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/motor_response_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-13dp"
+        android:textSize="8sp"
+        android:text="1"
+        android:textColor="#ffffff"
+        android:layout_gravity="center_horizontal"
+        tools:ignore="HardcodedText,SmallSp" />
 
     </LinearLayout>
 

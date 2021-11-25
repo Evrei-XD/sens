@@ -516,9 +516,9 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 //		System.err.println("============================================");
 //		System.err.println("============================================");
 		GLES20.glUniform1i(isUsingNormalMap, 0);
-		GLES20.glUniform1f(specularFactorUniform, 20.0f);
-		GLES20.glUniform1f(lightPowerUniform, 1400.0f);
-		GLES20.glUniform1f(ambientFactorUniform, 1.0f);
+		GLES20.glUniform1f(specularFactorUniform, 2.0f);
+		GLES20.glUniform1f(lightPowerUniform, 700.0f);
+		GLES20.glUniform1f(ambientFactorUniform, 0.92f);
 		GLES20.glUniform1i(textureUniform, 5);
 
 		for (int j = 0; j<selectFragment.size(); j++){
