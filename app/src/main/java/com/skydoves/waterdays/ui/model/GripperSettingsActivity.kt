@@ -42,6 +42,8 @@ class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScre
         window.navigationBarColor = resources.getColor(R.color.colorPrimaryDark)
         window.statusBarColor = this.resources.getColor(R.color.colorPrimaryDark, theme)
         selectionState = true
+        selectPartsNum = selectionPartMass
+        selectPartsNum.clear()
 
         RxView.clicks(findViewById(R.id.senses_one))
                 .observeOn(AndroidSchedulers.mainThread())
