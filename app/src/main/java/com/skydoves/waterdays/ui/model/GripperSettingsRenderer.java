@@ -461,8 +461,8 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 
 
 		if (selectTemp != lastSelectTemp ) {
-//			System.err.println("============================================");
-//			System.err.println("============================================");
+			System.err.println("============================================");
+			System.err.println("++++++++++++++++++++++++++++++++++++++++++++");
 //			System.err.println("selectTemp != lastSelectTemp");
 			if (selectTemp == 0 ) {
 				//TODO
@@ -503,15 +503,30 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 			}
 			lastSelectTemp = selectTemp;
 			for (int j = 0; j<selectFragment.size(); j++){
-//				System.err.println(selectFragment.get(j));
+				System.err.println(selectFragment.get(j));
+				GripperSettingsActivity.Companion.setSelectPartsNum(selectFragment);
 			}
 //			System.err.println("============================================");
 			for (int j = 0; j<unselectFragment.size(); j++){
 //				System.err.println(unselectFragment.get(j));
 			}
-//			System.err.println("============================================");
-//			System.err.println("============================================");
-		}
+			System.err.println("++++++++++++++++++++++++++++++++++++++++++++");
+			System.err.println("============================================\n");
+		} else {
+			if ( !GripperSettingsActivity.Companion.getSelectionState() ) {
+				selectingNowFlag = false;
+				unselectFragment.clear();
+				for (int i = 0; i<MAX_NUMBER_DETAILS; i++) {
+					selectionStationFragments[i] = 0;
+					unselectFragment.add(i);
+				}
+				selectFragment.clear();
+				GripperSettingsActivity.Companion.setSelectionState(true);
+			}
+ 		}
+
+
+
 
 //		System.err.println("============================================");
 //		System.err.println("============================================");
