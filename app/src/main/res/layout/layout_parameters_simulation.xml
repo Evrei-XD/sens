@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_drinkamount"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -125,7 +126,8 @@
                 android:visibility="gone"
                 android:src="@drawable/ic_refresh"
                 app:imageview_duration="200"
-                app:imageview_scale="0.9" />
+                app:imageview_scale="0.9"
+                tools:ignore="OnClick" />
 
             <TextView
                 android:id="@+id/drinkamount_percentage"

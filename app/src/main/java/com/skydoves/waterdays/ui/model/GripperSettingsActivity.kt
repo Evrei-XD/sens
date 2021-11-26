@@ -37,7 +37,7 @@ class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScre
         var selectionState by Delegates.notNull<Boolean>()
     }
 
-    @SuppressLint("NewApi", "CheckResult")
+    @SuppressLint("NewApi", "CheckResult", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.model_tree_d)
@@ -117,6 +117,7 @@ class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScre
                     selectionState = false
 
                     numFrame += 1
+                    number_frame.text = "№ $numFrame"
                     Toast.makeText(this, "кадр сохранён", Toast.LENGTH_SHORT).show()
                 }
 

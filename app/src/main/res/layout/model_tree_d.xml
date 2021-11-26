@@ -187,6 +187,17 @@
         android:orientation="vertical"
         tools:ignore="RtlHardcoded">
 
+    <TextView
+        android:id="@+id/number_frame"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="0dp"
+        android:textColor="#FFFFFFFF"
+        style="@style/Text"
+        android:gravity="center"
+        android:text="№ 1"
+        tools:ignore="ContentDescription" />
+
     <ImageButton
         android:id="@+id/senses_one"
         android:layout_width="48dp"

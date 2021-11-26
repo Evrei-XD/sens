@@ -275,7 +275,7 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
 
   fun createCSV() {
     val headerList: MutableList<String> = ArrayList()
-    headerList.add("number frame.selected fragments hand.feeling temperature.feeling pressure.feeling pain.motor impact.doctor comments-")
+    headerList.add("number frame.selected fragments hand.feeling temperature.feeling pressure.feeling pain.motor impact.doctor comment-")
 
     easyCsv.setSeparatorColumn(".")
     easyCsv.setSeperatorLine("-")

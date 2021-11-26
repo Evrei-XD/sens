@@ -40,6 +40,7 @@
             android:layout_weight="2.9">
 
             <EditText
+                android:id="@+id/doctor_comments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
