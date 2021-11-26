@@ -17,6 +17,7 @@
 package com.skydoves.waterdays.persistence.preference
 
 import android.content.Context
+import java.util.ArrayList
 
 class PreferenceManager(private val mContext: Context) {
 

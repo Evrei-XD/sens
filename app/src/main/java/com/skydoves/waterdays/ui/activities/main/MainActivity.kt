@@ -38,8 +38,9 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
   private lateinit var mSectionsPagerAdapter: SectionsPagerAdapter
   private var mLoad3DModelNew = Load3DModelNew(this)
   private var threadFunction = arrayOfNulls<Thread>(MAX_NUMBER_DETAILS + MAX_NUMBER_DETAILS)
-  public var timeNow = ""
+  var timeNow = ""
   private var easyCsv = EasyCsv(this)
+  private var dataList: MutableList<String> = ArrayList()
 
 
   @SuppressLint("CheckResult", "NewApi")
@@ -66,7 +67,18 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
         }
 
     easyCsv =  EasyCsv(this@MainActivity)
-    createCSV()
+
+    RxUpdateMainEvent.getInstance().listToCSVObservable
+            .compose(bindToLifecycle())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { parameters ->
+              System.err.println("=========================")
+              dataList.add(parameters.listToCSV)
+              for (i in dataList.indices) {
+                System.err.println("dataList: " + dataList[i])
+              }
+            }
+//    createCSV()
   }
 
   override fun initializeUI() {
@@ -263,17 +275,12 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
 
   fun createCSV() {
     val headerList: MutableList<String> = ArrayList()
-    headerList.add("Name.Surname.Age.Address.Location.Education-")
-
-    val dataList: MutableList<String> = ArrayList()
-    dataList.add("Serkan.Ozaydin.23.Fatih.Turkey.University-")
-    dataList.add("лол.озадин.26.Москва.Россия.РУДН-")
-    dataList.add("Serkan.Ozaydin.23.Fatih.Turkey.University-")
+    headerList.add("number frame.selected fragments hand.feeling temperature.feeling pressure.feeling pain.motor impact.doctor comments-")
 
     easyCsv.setSeparatorColumn(".")
     easyCsv.setSeperatorLine("-")
 
-    val fileName = "EasyCsv3"
+    val fileName = "sens_test__"+getCurrentTimeStamp()
 
     easyCsv.createCsvFile(fileName, headerList, dataList, PreferenceKeys.WRITE_PERMISSON_REQUEST_CODE, object : FileCallback {
       override fun onSuccess(file: File) {

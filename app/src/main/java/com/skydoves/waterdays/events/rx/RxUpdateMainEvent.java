@@ -16,17 +16,20 @@
 
 package com.skydoves.waterdays.events.rx;
 
+import com.skydoves.waterdays.models.ListToCSV;
+
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-/** Developed by skydoves on 2017-08-19. Copyright (c) 2017 skydoves rights reserved. */
 public class RxUpdateMainEvent {
 
   private static RxUpdateMainEvent instance;
   private PublishSubject<Boolean> subject;
+  private PublishSubject<ListToCSV> listToCSVSubject;
 
   private RxUpdateMainEvent() {
     subject = PublishSubject.create();
+    listToCSVSubject = PublishSubject.create();
   }
 
   public static RxUpdateMainEvent getInstance() {
@@ -40,11 +43,9 @@ public class RxUpdateMainEvent {
     subject.onNext(true);
   }
 
-  public void updateBadge() {
-    subject.onNext(false);
-  }
+  public void updateBadge() {subject.onNext(false);}
+  public void updateListToCSV(ListToCSV parameters) { listToCSVSubject.onNext(parameters); }
 
-  public Observable<Boolean> getObservable() {
-    return subject;
-  }
+  public Observable<Boolean> getObservable() { return subject; }
+  public Observable<ListToCSV>getListToCSVObservable() { return listToCSVSubject; }
 }

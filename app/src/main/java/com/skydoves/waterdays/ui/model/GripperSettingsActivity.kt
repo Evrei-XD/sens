@@ -13,6 +13,8 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.skydoves.waterdays.R
 import com.skydoves.waterdays.compose.BaseActivity
 import com.skydoves.waterdays.compose.qualifiers.RequirePresenter
+import com.skydoves.waterdays.events.rx.RxUpdateMainEvent
+import com.skydoves.waterdays.models.ListToCSV
 import com.skydoves.waterdays.persistence.preference.PreferenceKeys
 import com.skydoves.waterdays.presenters.GripperScreenPresenter
 import com.skydoves.waterdays.viewTypes.GripperScreenActivityView
@@ -25,7 +27,9 @@ import kotlin.properties.Delegates
 @RequirePresenter(GripperScreenPresenter::class)
 class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScreenActivityView>(), GripperScreenActivityView{
 
-    var selectionPartMass: ArrayList<Int> = ArrayList()
+    private var selectionPartMass: ArrayList<Int> = ArrayList()
+    private var csvResult: ArrayList<String> =  ArrayList()
+    private var numFrame = 1
 
     private var renderer: GripperSettingsRenderer? = null
     companion object {
@@ -85,10 +89,21 @@ class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScre
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     //TODO сохранение кадра
+
                     selectionPartMass = retranslation(selectPartsNum)
+                    var frameResult = ""
+                    frameResult += "$numFrame."
                     for (i in selectionPartMass.indices) {
-                        System.err.println("result: " + selectionPartMass[i])
+                        frameResult += selectionPartMass[i].toString() + " "
                     }
+                    frameResult += "." + senses_one_tv.text
+                    frameResult += "." + senses_two_tv.text
+                    frameResult += "." + senses_three_tv.text
+                    frameResult += "." + motor_response_tv.text
+                    frameResult += ". -"
+                    val listToCSV = ListToCSV(frameResult)
+                    RxUpdateMainEvent.getInstance().updateListToCSV(listToCSV)
+
                     presenter.preferenceManager.putInt(PreferenceKeys.SENSES_ONE, 0)
                     senses_one_tv.text = "0"
                     presenter.preferenceManager.putInt(PreferenceKeys.SENSES_TWO, 0)
@@ -101,6 +116,7 @@ class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScre
                     characteristics_sb.progress = 0
                     selectionState = false
 
+                    numFrame += 1
                     Toast.makeText(this, "кадр сохранён", Toast.LENGTH_SHORT).show()
                 }
 
@@ -348,3 +364,4 @@ class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScre
 
 
 }
+
