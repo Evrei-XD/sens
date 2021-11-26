@@ -8,12 +8,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
 import com.skydoves.waterdays.R
 import com.skydoves.waterdays.common.ConstantManager.MAX_NUMBER_DETAILS
 import com.skydoves.waterdays.compose.BaseActivity
 import com.skydoves.waterdays.compose.qualifiers.RequirePresenter
 import com.skydoves.waterdays.consts.IntentExtras
 import com.skydoves.waterdays.events.rx.RxUpdateMainEvent
+import com.skydoves.waterdays.persistence.preference.PreferenceKeys
 import com.skydoves.waterdays.presenters.Load3DModelNew
 import com.skydoves.waterdays.presenters.MainPresenter
 import com.skydoves.waterdays.services.receivers.AlarmBootReceiver
@@ -23,16 +25,22 @@ import com.skydoves.waterdays.utils.NavigationUtils
 import com.skydoves.waterdays.viewTypes.MainActivityView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import net.ozaydin.serkan.easy_csv.EasyCsv
+import net.ozaydin.serkan.easy_csv.FileCallback
+import java.io.File
+import java.text.SimpleDateFormat
 import java.util.*
 
-
+@Suppress("DEPRECATION")
 @RequirePresenter(MainPresenter::class)
 class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivityView {
 
   private lateinit var mSectionsPagerAdapter: SectionsPagerAdapter
-  var mLoad3DModelNew = Load3DModelNew(this)
-//  var threadFunction = arrayOfNulls<Thread>(MAX_NUMBER_DETAILS)
-  var threadFunction = arrayOfNulls<Thread>(MAX_NUMBER_DETAILS + MAX_NUMBER_DETAILS)
+  private var mLoad3DModelNew = Load3DModelNew(this)
+  private var threadFunction = arrayOfNulls<Thread>(MAX_NUMBER_DETAILS + MAX_NUMBER_DETAILS)
+  public var timeNow = ""
+  private var easyCsv = EasyCsv(this)
+
 
   @SuppressLint("CheckResult", "NewApi")
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +48,6 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
     setContentView(R.layout.activity_main)
     initBaseView(this)
     window.navigationBarColor = resources.getColor(R.color.colorPrimary)
-
 
     // auto weather alarm
     weatherAlarm()
@@ -57,6 +64,9 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
           if (!flag) showBadge(1)
           mSectionsPagerAdapter.notifyDataSetChanged()
         }
+
+    easyCsv =  EasyCsv(this@MainActivity)
+    createCSV()
   }
 
   override fun initializeUI() {
@@ -67,8 +77,7 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
     init3D()
   }
 
-  private fun init3D()
-  {
+  private fun init3D() {
     Load3DModelNew.model[0]   = mLoad3DModelNew.readData("HAND_new/HAND_new_1_formatting.obj")
     Load3DModelNew.model[1]   = mLoad3DModelNew.readData("HAND_new/HAND_new_2_formatting.obj")
     Load3DModelNew.model[2]   = mLoad3DModelNew.readData("HAND_new/HAND_new_5_formatting.obj")
@@ -228,7 +237,7 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
 
     val i = Intent(this, javaClass)
     i.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-    val pIntent = PendingIntent.getActivity(this, 0, i, 0)
+    PendingIntent.getActivity(this, 0, i, 0)
   }
   override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
@@ -250,5 +259,37 @@ class MainActivity : BaseActivity<MainPresenter, MainActivityView>(), MainActivi
 
   fun clickNext(position: Int) {
     NavigationUtils.setNextView(baseContext, mainactivity_viewpager, mainactivity_navi, position)
+  }
+
+  fun createCSV() {
+    val headerList: MutableList<String> = ArrayList()
+    headerList.add("Name.Surname.Age.Address.Location.Education-")
+
+    val dataList: MutableList<String> = ArrayList()
+    dataList.add("Serkan.Ozaydin.23.Fatih.Turkey.University-")
+    dataList.add("лол.озадин.26.Москва.Россия.РУДН-")
+    dataList.add("Serkan.Ozaydin.23.Fatih.Turkey.University-")
+
+    easyCsv.setSeparatorColumn(".")
+    easyCsv.setSeperatorLine("-")
+
+    val fileName = "EasyCsv3"
+
+    easyCsv.createCsvFile(fileName, headerList, dataList, PreferenceKeys.WRITE_PERMISSON_REQUEST_CODE, object : FileCallback {
+      override fun onSuccess(file: File) {
+        Toast.makeText(this@MainActivity, "Saved file", Toast.LENGTH_SHORT).show()
+      }
+
+      override fun onFail(err: String) {
+        Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
+      }
+    })
+  }
+
+  @SuppressLint("SimpleDateFormat")
+  fun getCurrentTimeStamp(): String? {
+    val sdfDate = SimpleDateFormat("HH:mm:ss") //dd/MM/yyyy
+    val now = Date()
+    return sdfDate.format(now)
   }
 }

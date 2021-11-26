@@ -36,4 +36,6 @@ object PreferenceKeys {
   const val SENSES_THREE = "SENSES_THREE"
   const val MOTOR_RESPONSE = "MOTOR_RESPONSE"
   const val NEXT_STAGE = "NEXT_STAGE"
+  const val WRITE_PERMISSON_REQUEST_CODE = 1
+
 }

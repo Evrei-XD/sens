@@ -31,7 +31,6 @@ class GripperSettingsActivity : BaseActivity<GripperScreenPresenter, GripperScre
     companion object {
         lateinit var selectPartsNum: java.util.ArrayList<Int>
         var selectionState by Delegates.notNull<Boolean>()
-//        var selectPartsNum by Delegates.notNull<Int>()
     }
 
     @SuppressLint("NewApi", "CheckResult")

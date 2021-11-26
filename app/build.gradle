@@ -70,6 +70,10 @@ dependencies {
 
     // debug
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // csv creator
+    implementation 'com.github.hsmnzaydn:easy-csv:1.0.0'
+//    implementation project(path: ':easy_csv')
 }
 
 apply from: '../spotless.gradle'

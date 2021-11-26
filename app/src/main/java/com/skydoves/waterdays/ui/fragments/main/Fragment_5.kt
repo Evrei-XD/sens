@@ -40,10 +40,14 @@ class Fragment_5 : Fragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     next_2_btn.setOnClickListener {
-      //TODO компиляция пдфки
+      //TODO компиляция csv
+      System.err.println("Time now: " + main?.getCurrentTimeStamp())
+      main?.createCSV()
     }
     next_1_btn.setOnClickListener {
-      //TODO компиляция пдфки
+      //TODO компиляция csv
+      System.err.println("Time now: " + main?.getCurrentTimeStamp())
+      main?.createCSV()
     }
     back_1_settings_btn.setOnClickListener {
       val intent = Intent(context, GripperSettingsActivity::class.java)
