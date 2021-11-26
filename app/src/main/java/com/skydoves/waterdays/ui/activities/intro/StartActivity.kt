@@ -50,11 +50,11 @@ class StartActivity : AppIntro(), BaseView {
     super.onCreate(savedInstanceState)
     WDApplication.component.inject(this)
 
-    if (!preferenceManager.getBoolean(PreferenceKeys.NEWBE.first, PreferenceKeys.NEWBE.second)) {
+//    if (!preferenceManager.getBoolean(PreferenceKeys.NEWBE.first, PreferenceKeys.NEWBE.second)) {
       startActivity(Intent(this, MainActivity::class.java))
       finish()
-      return
-    }
+//      return
+//    }
 
     if (!preferenceManager.getBoolean(PreferenceKeys.INIT_CAPACITY.first, PreferenceKeys.INIT_CAPACITY.second)) {
       sqliteManager.addCapacity(Capacity(null, 125))

@@ -188,7 +188,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 	public boolean selectingNowFlag;//флаг, информирующий о том, выбран сейчас хоть один фрагмент или нет
 	public boolean transferFlag;
 	private boolean firstInit = false;
-	private final int[] selectionStationFragments = new int[MAX_NUMBER_DETAILS+1]; //массив 0-1 состояния каждого объекта
+	private final int[] selectionStationFragments = new int[MAX_NUMBER_DETAILS+2]; //массив 0-1 состояния каждого объекта
 	private ArrayList<Integer> selectFragment = new ArrayList<>(); //номера фрагментов, списка отрисовываются выделенными
 	private ArrayList<Integer> unselectFragment = new ArrayList<>(); //номера фрагментов, списка отрисовываются невыделенными
 //	private boolean firstPrint = true;
@@ -324,7 +324,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		selectStation = "UNSELECTED_OBJECT";
 
 		//обнуленуление всего массива выбранных объектов
-		for (int i = 0; i<MAX_NUMBER_DETAILS; i++) {
+		for (int i = 0; i<=MAX_NUMBER_DETAILS; i++) {
 			selectionStationFragments[i] = 0;
 			unselectFragment.add(i);
 		}
@@ -435,7 +435,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 		GLES20.glUniform1f(ambientFactorUniform, 0.92f);
 		GLES20.glUniform1i(textureUniform, 4);
 
-		for (int i = 1; i<MAX_NUMBER_DETAILS; i+=2){
+		for (int i = 1; i<=MAX_NUMBER_DETAILS; i+=2){
 			if (selectionStationFragments[i+1] == 0) {
 				heightMap.render(new int[]{i});
 			}
@@ -469,7 +469,7 @@ public class GripperSettingsRenderer implements GLSurfaceView.Renderer{
 //				System.err.println("selectTemp = 0");
 				selectingNowFlag = false;
 				unselectFragment.clear();
-				for (int i = 0; i<MAX_NUMBER_DETAILS; i++) {
+				for (int i = 0; i<=MAX_NUMBER_DETAILS; i++) {
 					selectionStationFragments[i] = 0;
 					unselectFragment.add(i);
 				}
